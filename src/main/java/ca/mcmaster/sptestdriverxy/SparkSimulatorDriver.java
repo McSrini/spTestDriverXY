@@ -9,6 +9,7 @@ import static ca.mcmaster.spcplexlibxy.Constants.*;
 import static ca.mcmaster.spcplexlibxy.Parameters.*;
 import ca.mcmaster.spcplexlibxy.datatypes.*;
 import ca.mcmaster.sploadbalancexy.heuristics.AveragingHeuristic;
+import ca.mcmaster.sploadbalancexy.heuristics.RawNodeAverager;
 import static ca.mcmaster.sptestdriverxy.Parameters.MAX_ITERATIONS;
 import static ca.mcmaster.sptestdriverxy.Parameters.*;
 import java.io.File;
@@ -119,14 +120,14 @@ public class SparkSimulatorDriver {
 
             
             //do load balancing if needed
-            AveragingHeuristic loadBalancer = new AveragingHeuristic(partitionList );            
+            RawNodeAverager loadBalancer = new RawNodeAverager(partitionList );            
             if (loadBalancer.isLoadBalancingRequired()) {
                 
                 loadBalancer.loadBalance();
                 
                 
             } else {
-                logger.info("load balance or raw nodes not needed ");
+                logger.info("load balance of raw nodes not needed ");
             }
            
              
@@ -141,6 +142,7 @@ public class SparkSimulatorDriver {
         //markshare 5 0 ->1
         //a1c1s1 -> 11503.4
         //timtab2 -> 1096557
+        //msc98 solves in 2hr 45 minutes wo callbacks
          
         //print time usage % for every partition
         for ( ActiveSubtreeCollection astc : partitionList){
